@@ -1,0 +1,27 @@
+{% extends "snoop/base.html" %}
+{% load staticfiles %} 
+{% block content %}
+  {% if user.is_authenticated %}
+		<article class="media content-section" style="background-color: #070707;">
+  		
+    		<div class="article-metadata">
+          <p class="text-muted"><i>Posted by <a class="md-2" href="#">{{ object.posted_by }}</a> on {{ object.date_posted }}</i></p>
+      			<img src="{{object.photo.url}}" alt="My image" class="responsive" style='height: 100%; width: 100%;max-width:300px; max-height: 300px; object-fit: contain; padding-top: 10px; padding-bottom: 10px;' />
+            
+            <h6>Name: {{ object.name }}</h6>
+            <p style="color: #D3D3D3">Age: {{object.age}}<br>
+            Address: {{object.address}}<br>
+            Last seen: {{object.last_seen}}<br>
+            Contact: {{object.contact}}<br>
+            Details: {{object.details}}</p>
+            {% if object.posted_by == user %}
+          <div>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'sawpost-update' object.id %}">Update</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'sawpost-delete' object.id %}">Delete</a>
+          </div>
+        {% endif %}
+    		</div>	
+		</article>
+  {% else %}
+  {% endif %}
+{% endblock content %}

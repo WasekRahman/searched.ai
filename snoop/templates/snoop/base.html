@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href='http://fonts.googleapis.com/css?family=Berkshire+Swash' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="{% static 'snoop/main.css' %}">
+
+    {% if title %}
+        <title>Swooped - {{ title }}</title>
+    {% else %}
+        <title>Swooped</title>
+    {% endif %}
+</head>
+<body style="background-color: black">
+
+    <header class="site-header">
+      <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+        <div class="container">
+          <a class="navbar-brand mr-4" href="{% url 'snoop-home' %}" style="font-family: Courier New; font-size: 17px">searchd.ai<sup class="logo_sup">&trade;</a>
+          
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+          </button>
+          {% if user.is_authenticated %}
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+              
+            </div>
+            <!-- Navbar Right Side -->
+            <div class="navbar-nav">
+            <div class="media">
+              <div class="inset" style="padding-right: 10px; padding-top: 4px;">
+            <a class="mr-2" href="{% url 'user-posts' %}"><img class="rounded-circle article-svg" src="{{ user.socialaccount_set.all.0.get_avatar_url }}"></a></div>
+              
+            </div>
+              <a class="nav-item nav-link" href="{% url 'snoop-home' %}">Home</a>
+              <a class="nav-item nav-link" href="{% url 'snoop-about' %}">About</a>
+              <a class="nav-item nav-link" href="{% url 'snoop-suspect'%}">Suspects</a>
+              <a class="nav-item nav-link" href="/accounts/logout/">Logout</a>
+            </div>
+            </div>
+            {% else %}
+            {% endif %}
+          
+        </div>
+      </nav>
+    </header>
+    <main role="main" class="container">
+      <div class="row">
+        <div class="col-md-8">
+        	
+        		{% block content %}{% endblock %}
+        	
+        </div>
+
+        <div class="col-md-4" style="padding: 20px">
+            {% if user.is_authenticated %}
+          <h3>Keep Track</h3><br>
+            <a style="color: gray" href="{% url 'post-create' %}"><i>Want to report a missing person? Report here.</i></a><br><br>
+            <a style="color: gray" href="{% url 'sawpost-create' %}"><i>Suspecting someone to be lost? Report here.</i></a><br><br>
+              <ul class="list-group">
+                <a href="/my_matches"><li class="list-group-item list-group-item-light" style="background-color: black; border: 1px solid #252424">My Matches</li></a>
+                <a href="/announcements"><li class="list-group-item list-group-item-light" style="background-color: black; border: 1px solid #252424">Announcements</li></a>
+              </ul>
+            </p>
+            <div class="media-body">
+                <p class="text-muted"><i>Logged in as {{ user.get_full_name }}</i></p>
+            </div>
+            {%else%}
+            <br>
+            <br>
+            <br>
+            {%endif%}
+          
+        
+      </div>
+        <div class="copyright" style="padding: 20px">
+				Powered by WAM Technology Inc. &copy; 2019.
+		</div>
+      </div>
+    </main>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

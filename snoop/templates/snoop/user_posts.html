@@ -1,0 +1,38 @@
+{% extends "snoop/base.html" %}
+{% load staticfiles %} 
+{% block content %}
+  {% if user.is_authenticated %}
+  
+    {% if posts %}
+       <h3 style="text-align: center; letter-spacing: 3px"> MY REPORTS </h3>
+    {% else %}
+        <p style="padding-top: 40px"><i>No reports have been made.</i></p>
+    {% endif %}
+  
+             
+  {% for post in posts %}
+    {% if post.posted_by == user %}
+      <article class="media content-section" style="background-color: #070707;">
+      
+          <div class="article-metadata">
+            <p class="text-muted"><i>Posted by <a class="md-2" href="#">{{ post.posted_by }}</a> on {{ post.date_posted }}</i></p>
+              <img src="{{post.photo.url}}" alt="My image" class="responsive" style='height: 100%; width: 100%;max-width:300px; max-height: 300px; object-fit: contain; padding-top: 10px; padding-bottom: 10px;' />
+            
+              <a href="{% url 'post-detail' post.id %}"><h6>Name: {{ post.name }}</h6>
+              <p style="color: #D3D3D3">Age: {{post.age}}<br>
+              Address: {{post.address}}<br>
+              Last seen: {{post.last_seen}}<br>
+              Contact: {{post.contact}}<br>
+              Details: {{post.details}}</p></a>
+              <div>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' post.id %}">Update</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' post.id %}">Delete</a>
+          </div>
+        </div>
+      </article>
+    {% else %}
+    {% endif %} 
+  {% endfor %}
+  {% else %}
+  {% endif %}
+{% endblock content %}

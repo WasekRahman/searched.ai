@@ -1,0 +1,49 @@
+{% load static %}
+{% load socialaccount %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Login</title>
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="{% static 'snoop/login.css' %}">
+<!--===============================================================================================-->
+</head>
+<body style="background-color: black">
+  <header class="site-header">
+      <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+        <div class="container">
+  <a class="navbar-brand mr-4" href="{% url 'snoop-home' %}" style="font-family: Courier New; font-size: 17px">searchd.ai<sup class="logo_sup">&trade;</a>
+  </div></nav></header>
+
+  <div class="limiter">
+    <div class="container-login100">
+      <div class="wrap-login100">
+        <form class="login100-form validate-form">
+          <span class="login100-form-title p-b-26">
+           Please login to continue
+          </span>
+          <div style="padding: 20px; align-items: center;">
+          <div class="col">
+        <a href="{% provider_login_url 'facebook' process=process scope=scope auth_params=auth_params %}" class="fb btn">
+          <i class="fa fa-facebook fa-fw"></i> Login with Facebook
+        </a>
+        <br>
+        <br>
+        <a href="{% provider_login_url 'google' process=process scope=scope auth_params=auth_params %}" class="google btn">
+          <i class="fa fa-google fa-fw"></i> Login with Google+
+        </a>
+      </div>
+        </form>
+      </div>
+    </div>
+  
+   <div class="copyright" style="color: gray; padding-left: 5px; padding-right: 5px ">
+        Powered by WAM Technology Inc. &copy; 2019.
+    </div></div>
+</body>
+</html>
